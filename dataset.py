@@ -44,20 +44,11 @@ class VCTK092Dataset(Dataset):
         n_fft = 1024
         win_length = None
         hop_length = 256
-        n_mels = 64
 
         self.spec = T.Spectrogram(
             n_fft=n_fft,
             win_length=win_length,
             hop_length=hop_length,
-            power=2.0,
-        )
-        self.mel_spec = T.MelSpectrogram(
-            sample_rate=self.hr,
-            n_fft=n_fft,
-            win_length=win_length,
-            hop_length=hop_length,
-            n_mels=n_mels,
             power=2.0,
         )
 

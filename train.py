@@ -71,22 +71,6 @@ if os.path.exists(last_path):
 else:
     print('No checkpoint is found.')
 
-n_fft = 1024
-win_length = None
-hop_length = 256
-n_mels = 64
-
-mel_spec = T.MelSpectrogram(
-    sample_rate=HR_sample_rate,
-    n_fft=n_fft,
-    win_length=win_length,
-    hop_length=hop_length,
-    n_mels=n_mels,
-    power=2.0,
-)
-
-alpha = 0.8
-
 for epoch in range(last_epoch+1, max_epoch+1):
     start_epoch = time.time()
     print(f'-------- EPOCH {epoch} / {max_epoch} --------')
@@ -98,10 +82,6 @@ for epoch in range(last_epoch+1, max_epoch+1):
         hr_wave = hr_wave.to(device)
         lr_spec = lr_spec.to(device)
         sr_wave = model(lr_wave, lr_spec)
-        #sr_mel_spec = mel_spec(sr_wave)
-        #wave_loss = F.mse_loss(sr_wave, hr_wave)
-        #mel_spec_loss = F.mse_loss(sr_mel_spec, hr_mel_spec)
-        #loss = alpha * wave_loss + (1 - alpha) * mel_spec_loss
 
         loss = LSD(sr_wave, hr_wave) - SNR(sr_wave, hr_wave)
         optimizer.zero_grad()
@@ -120,10 +100,6 @@ for epoch in range(last_epoch+1, max_epoch+1):
             hr_wave = hr_wave.to(device)
             lr_spec = lr_spec.to(device)
             sr_wave = model(lr_wave, lr_spec)[:, :len(hr_wave[0])]
-            #sr_mel_spec = mel_spec(sr_wave)
-            #wave_loss = F.mse_loss(sr_wave, hr_wave)
-            #mel_spec_loss = F.mse_loss(sr_mel_spec, hr_mel_spec)
-            #loss = alpha * wave_loss + (1 - alpha) * mel_spec_loss
 
             loss = LSD(sr_wave, hr_wave) - SNR(sr_wave, hr_wave)
             snr += SNR(sr_wave, hr_wave)
