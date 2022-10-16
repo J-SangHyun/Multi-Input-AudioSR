@@ -69,7 +69,7 @@ class VCTK092Dataset(Dataset):
         raw_wave_lr = librosa.resample(y=raw_wave_hr, orig_sr=self.hr, target_sr=self.lr, res_type=res_type)
 
         if self.mode == 'train':
-            max_length = 30000 // self.rate
+            max_length = 15000 // self.rate
             lr_length = len(raw_wave_lr)
             start = random.randrange(max(1, lr_length - max_length))
 

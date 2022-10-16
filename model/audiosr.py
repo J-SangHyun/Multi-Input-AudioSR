@@ -41,8 +41,8 @@ class DilatedBlock(nn.Module):
 class AudioSR(nn.Module):
     def __init__(self, rate):
         super(AudioSR, self).__init__()
-        wave_channels = 128
-        spec_channels = 32
+        wave_channels = 192
+        spec_channels = 64
         n_blocks = 2
 
         self.name = 'AudioSR'
