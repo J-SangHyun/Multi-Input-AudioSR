@@ -21,7 +21,7 @@ git clone https://github.com/J-SangHyun/Multi-Input-AudioSR.git
 
 4. Unzip dataset and place it in ```dataset``` folder.
 ```
-Audio-Super-Resolution/dataset/VCTK-Corpus-0.92/wav48_silence_trimmed/...
+Multi-Input-AudioSR/dataset/VCTK-Corpus-0.92/wav48_silence_trimmed/...
 ```
 
 5. Install PyTorch + Cuda by following instruction at the [PyTorch Webpage](https://pytorch.org/).
