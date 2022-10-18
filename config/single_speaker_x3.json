@@ -2,7 +2,7 @@
   "dtype": "single",
   "LR_sample_rate": 16000,
   "HR_sample_rate": 48000,
-  "max_epoch": 500,
+  "max_epoch": 1000,
   "batch_size": 4,
   "lr": 1e-4
 }

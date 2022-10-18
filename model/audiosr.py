@@ -11,13 +11,13 @@ class DilatedLayer(nn.Module):
         super(DilatedLayer, self).__init__()
         self.dil_conv = nn.Conv1d(hidden, hidden, kernel_size=(3,), padding=dilation, dilation=dilation)
         self.local_conv = nn.Conv1d(hidden, hidden, kernel_size=(3,), padding=1)
-        #self.direct_conv = nn.Conv1d(hidden, hidden, kernel_size=(1,))
+        self.direct_conv = nn.Conv1d(hidden, hidden, kernel_size=(1,))
         self.gate_conv = nn.Conv1d(hidden, hidden, kernel_size=(3,), padding=1)
         self.filter_conv = nn.Conv1d(hidden, hidden, kernel_size=(3,), padding=1)
         self.proj_conv = nn.Conv1d(hidden, hidden, kernel_size=(1,))
 
     def forward(self, x):
-        y = self.dil_conv(x) + self.local_conv(x) #+ self.direct_conv(x)
+        y = self.dil_conv(x) + self.local_conv(x) + self.direct_conv(x)
         g = self.gate_conv(y)
         f = self.filter_conv(y)
         y = torch.sigmoid(g) * torch.tanh(f)
@@ -41,7 +41,7 @@ class DilatedBlock(nn.Module):
 class AudioSR(nn.Module):
     def __init__(self, rate):
         super(AudioSR, self).__init__()
-        wave_channels = 128 + 32
+        wave_channels = 128 + 32 + 16
         spec_channels = 16 + 8
         overall_channels = wave_channels + spec_channels
         n_blocks = 2

@@ -55,9 +55,7 @@ class VCTK092Dataset(Dataset):
     def __getitem__(self, idx):
         file_name = self.file_names[idx]
         raw_wave_hr = librosa.load(file_name, sr=self.hr)[0]
-
-        #res_type = random.choice(['linear', 'sinc_best', 'soxr_qq', 'soxr_hq']) if self.mode == 'train' else 'sinc_best'
-        res_type = 'sinc_best'
+        res_type = 'linear'
         raw_wave_lr = librosa.resample(y=raw_wave_hr, orig_sr=self.hr, target_sr=self.lr, res_type=res_type)
 
         if self.mode == 'train':
@@ -69,11 +67,6 @@ class VCTK092Dataset(Dataset):
             wave_lr = F.pad(wave_lr, (0, max(0, max_length - len(wave_lr))), 'constant', 0)
             wave_hr = torch.Tensor(raw_wave_hr[self.rate * start:self.rate * (start + max_length)])
             wave_hr = F.pad(wave_hr, (0, max(0, self.rate * max_length - len(wave_hr))), 'constant', 0)
-
-            # add noise
-            #noise_std, noise_mean = 0.05, 0.0
-            #wave_lr += torch.randn(wave_lr.size()) * noise_std + noise_mean
-
         else:
             wave_lr = torch.Tensor(raw_wave_lr)
             wave_hr = torch.Tensor(raw_wave_hr)
