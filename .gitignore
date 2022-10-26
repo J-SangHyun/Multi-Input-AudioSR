@@ -142,6 +142,8 @@ dataset/VCTK-Corpus-0.92/*/*/*.flac
 
 # models
 model/*/*
+no_spec_model/
 
 # test audios
 audio/
+no_spec_audio/
