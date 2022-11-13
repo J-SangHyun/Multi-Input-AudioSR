@@ -38,7 +38,6 @@ audio_dir.mkdir(parents=True, exist_ok=True)
 
 model = AudioSR(rate).to(device)
 
-root = Path('./')
 ckpt_root = root / 'model' / dtype / f'x{rate}'
 best_path = ckpt_root / 'best.pth'
 best_val_loss = np.inf
