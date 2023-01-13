@@ -147,7 +147,6 @@ no_att_model/
 no_all_model/
 
 # test audios
-audio/
 no_spec_audio/
 no_att_audio/
 no_all_audio/
